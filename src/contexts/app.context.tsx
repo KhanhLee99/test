@@ -16,6 +16,8 @@ interface AppContextInterface {
   setExtendedPurchase: React.Dispatch<React.SetStateAction<ExtendedPurchase[]>>
   reset: () => void
   language?: Langs
+  isCartShake: boolean,
+  setCartShake: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const initialValue: AppContextInterface = {
@@ -26,7 +28,9 @@ const initialValue: AppContextInterface = {
   extendedPurchase: [],
   setExtendedPurchase: () => null,
   reset: () => null,
-  language: getLanguageFromLS()
+  language: getLanguageFromLS(),
+  isCartShake: false,
+  setCartShake: () => null
 }
 
 export const AppContext = createContext<AppContextInterface>(initialValue)
@@ -36,6 +40,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(initialValue.isAuthenticated)
   const [profile, setProfile] = useState<User | null>(initialValue.profile)
   const [extendedPurchase, setExtendedPurchase] = useState<ExtendedPurchase[]>(initialValue.extendedPurchase)
+  const [isCartShake, setCartShake] = useState<boolean>(initialValue.isCartShake)
 
   const reset = () => {
     setIsAuthenticated(false)
@@ -59,7 +64,9 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         setProfile,
         extendedPurchase,
         setExtendedPurchase,
-        reset
+        reset,
+        isCartShake,
+        setCartShake
       }}
     >
       {children}

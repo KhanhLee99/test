@@ -8,6 +8,8 @@ import RegisterLayout from './layouts/RegisterLayout'
 import CartLayout from './layouts/CartLayout'
 import UserLayout from './layouts/UserLayout'
 
+import TestAnimation from './pages/TestAnimation'
+
 const Login = lazy(() => import('./pages/Login'))
 const ProductList = lazy(() => import('./pages/ProductList'))
 const Profile = lazy(() => import('./pages/Profile'))
@@ -110,11 +112,12 @@ export default function useRouteElements() {
       path: URLs.productList,
       index: true,
       element: (
-        <MainLayout>
-          <Suspense>
-            <ProductList />
-          </Suspense>
-        </MainLayout>
+        // <MainLayout>
+        //   <Suspense>
+        //     <ProductList />
+        //   </Suspense>
+        // </MainLayout>
+        <TestAnimation />
       )
     },
     {

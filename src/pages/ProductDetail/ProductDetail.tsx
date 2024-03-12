@@ -20,8 +20,9 @@ import URLs from 'src/constants/url'
 import NotFound from '../NotFound'
 
 export default function ProductDetail() {
+  const spanRef = useRef<HTMLSpanElement>(null)
   const { t } = useTranslation()
-  const { isAuthenticated } = useContext(AppContext)
+  const { isAuthenticated, setCartShake } = useContext(AppContext)
   const queryClient = useQueryClient()
   const navigate = useNavigate()
   const [buyCount, setBuyCount] = useState<number | undefined>(1)
@@ -119,19 +120,28 @@ export default function ProductDetail() {
   }
 
   const handleAddToCart = () => {
-    if (!isAuthenticated) return navigateLoginPage(product as ProductType)
-    addToCartMutation.mutate(
-      {
-        buy_count: Number(buyCount),
-        product_id: product?._id as string
-      },
-      {
-        onSuccess: (data) => {
-          toast.success(data.data.message, { position: 'top-center', autoClose: 1000 })
-          queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
-        }
-      }
-    )
+    // if (!isAuthenticated) return navigateLoginPage(product as ProductType)
+    // addToCartMutation.mutate(
+    //   {
+    //     buy_count: Number(buyCount),
+    //     product_id: product?._id as string
+    //   },
+    //   {
+    //     onSuccess: (data) => {
+    //       toast.success(data.data.message, { position: 'top-center', autoClose: 1000 })
+    //       queryClient.invalidateQueries({ queryKey: ['purchases', { status: purchasesStatus.inCart }] })
+    //     }
+    //   }
+    // )
+    spanRef.current && spanRef.current.classList.add('send-to-cart')
+    setTimeout(() => {
+      spanRef.current && spanRef.current.classList.remove('send-to-cart')
+      setCartShake(true)
+      setTimeout(() => {
+        setCartShake(false)
+      }, 500)
+    }, 1000)
+    console.log('=======position====', (spanRef.current as HTMLSpanElement).getBoundingClientRect())
   }
 
   const handleBuyNow = async () => {
@@ -280,6 +290,7 @@ export default function ProductDetail() {
                 </div>
               </div>
               <div className='mt-8 flex items-center'>
+                <span ref={spanRef} className='cart-item'></span>
                 <button
                   className='flex h-12 items-center justify-center rounded-sm border border-orange bg-orange/10 px-5 capitalize text-orange shadow-sm hover:bg-orange/5'
                   onClick={handleAddToCart}

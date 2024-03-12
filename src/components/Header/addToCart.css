@@ -1,0 +1,133 @@
+.products-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.product {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+}
+
+.item {
+  position: relative;
+  margin-top: 50px;
+  width: 70px;
+  height: 100px;
+  border: 1px solid gray;
+  padding: 10px;
+  display: block;
+  margin-bottom: 10px;
+  border-radius: 3px;
+}
+
+.cart-container {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  padding: 10px;
+  background: #2b2b2b;
+  border-radius: 4px;
+}
+
+.cart {
+  font-size: 1.5em;
+  color: #fff;
+}
+
+.cart-count {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  line-height: 24px;
+  height: 24px;
+  width: 24px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #2bd156;
+  color: white;
+  border-radius: 20px;
+}
+
+.cart-item {
+  position: absolute;
+  height: 24px;
+  width: 24px;
+  /* top: -10px;
+  right: -10px; */
+}
+.cart-item::before {
+  content: '1';
+  display: block;
+  line-height: 24px;
+  height: 24px;
+  width: 24px;
+  font-size: 12px;
+  font-weight: 600;
+  background: #2bd156;
+  color: white;
+  border-radius: 20px;
+  text-align: center;
+}
+.add-to-cart {
+  border: none;
+  padding: 15px 0px;
+  border-radius: 3px;
+  background: orange;
+}
+
+.topbar {
+  width: 100%;
+  background: lightslategray;
+  padding: 10px;
+  color: #fff;
+  font-size: 2em;
+}
+
+.send-to-cart.cart-item {
+  display: block;
+  animation: xAxis 1s alternate forwards cubic-bezier(1, 0.44, 0.84, 0.165);
+}
+
+.send-to-cart.cart-item::before {
+  animation: yAxis 1s alternate forwards cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.shake {
+  animation: shakeCart 0.4s ease-in-out forwards;
+}
+
+@keyframes xAxis {
+  /* 50% {
+    transform: translateX(700px);
+  } */
+  100% {
+    transform: translateX(700px);
+    /* transform: translateX(calc(100vw - 10px)); */
+  }
+}
+
+@keyframes yAxis {
+  /* 50% {
+    transform: translateY(-430px);
+  } */
+  100% {
+    transform: translateY(-390px);
+  }
+}
+
+@keyframes shakeCart {
+  25% {
+    transform: translateX(6px);
+  }
+  50% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(2px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
